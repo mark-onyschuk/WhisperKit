@@ -14,8 +14,12 @@ public typealias FloatType = Float
 #endif
 
 #if (os(macOS) || targetEnvironment(macCatalyst)) && arch(arm64)
-extension Float16: BNNSScalar {}
-extension Float16: MLShapedArrayScalar {}
+extension Float16: @retroactive BNNSScalar {}
+extension Float16: @retroactive MLShapedArrayScalar {
+    public static var multiArrayDataType: MLMultiArrayDataType {
+        .float16
+    }
+}
 #endif
 
 // MARK: - CoreML
